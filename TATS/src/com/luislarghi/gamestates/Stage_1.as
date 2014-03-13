@@ -1,5 +1,6 @@
 package com.luislarghi.gamestates
 {
+	import com.Main;
 	import com.luislarghi.R;
 	import com.luislarghi.gameobjects.Player;
 	import com.luislarghi.gameobjects.TileMap;
@@ -27,7 +28,7 @@ package com.luislarghi.gamestates
 		
 		private var GUI_Component:GUI_Stage1;
 		
-		public function Stage_1(s:Stage, g:Engine_Game, c:BitmapData) { super(s, g, c); }
+		public function Stage_1(g:Engine_Game) { super(Main.mainStage, g); }
 		
 		protected override function Init(e:Event):void
 		{		

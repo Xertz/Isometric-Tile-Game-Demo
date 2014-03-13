@@ -1,5 +1,6 @@
 package com.luislarghi
 {
+	import com.Main;
 	import com.luislarghi.gamestates.Credits;
 	import com.luislarghi.gamestates.MainMenu;
 	import com.luislarghi.gamestates.Stage_1;
@@ -7,17 +8,15 @@ package com.luislarghi
 	import com.luislarghi.myfirtsengine.Engine_States;
 	
 	import flash.display.Stage;
+	import flash.system.System;
 	
 	public class Game extends Engine_Game
 	{
-		public function Game(s:Stage)
+		public function Game()
 		{
-			super(s);
+			super(Main.mainStage);
 			
-			//The game starts with it's menu
-			stateID = Engine_States.STATE_MAINMENU;
-			currentState = new MainMenu(mainStage, this, mainCanvas);
-			mainStage.addChild(currentState);
+			SetNextState(Engine_States.STATE_MAINMENU);
 		}
 		
 		protected override function ChangeState():void
@@ -26,7 +25,7 @@ package com.luislarghi
 			if(nextState != Engine_States.STATE_NULL)
 			{
 				// If the next stage is not exit remove the current one...
-				if(nextState != Engine_States.STATE_EXITAPP)
+				if(nextState != Engine_States.STATE_EXITAPP && currentState)
 				{
 					mainStage.removeChild(currentState);
 					currentState = null;
@@ -36,30 +35,30 @@ package com.luislarghi
 				switch(nextState)
 				{
 					case Engine_States.STATE_MAINMENU:
-						currentState = new MainMenu(mainStage, this, mainCanvas);
+						currentState = new MainMenu(this);
 						mainStage.addChild(currentState);
 						break;
 					
 					case Engine_States.STATE_CREDITS:
-						currentState = new Credits(mainStage, this, mainCanvas);
+						currentState = new Credits(this);
 						mainStage.addChild(currentState);
 						break;
 					
 					case Engine_States.STATE_INGAME:
-						currentState = new Stage_1(mainStage, this, mainCanvas);
+						currentState = new Stage_1(this);
 						mainStage.addChild(currentState);
 						break;
-					
-					/*case Engine_States.STATE_GAMEOVER:
-						currentState = new GameOver(mainStage, this, mainCanvas, mainScoreM);
-						mainStage.addChild(currentState);
-						break;*/
 				}
 				
 				stateID = nextState;
 				
 				nextState = Engine_States.STATE_NULL;
 			}
+		}
+		
+		protected override function ExitApp():void
+		{
+			System.exit(0);
 		}
 	}
 }

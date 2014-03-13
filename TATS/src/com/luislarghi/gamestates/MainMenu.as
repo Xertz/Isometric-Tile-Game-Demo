@@ -1,5 +1,6 @@
 package com.luislarghi.gamestates
 {
+	import com.Main;
 	import com.luislarghi.gui.GUI_MainMenu;
 	import com.luislarghi.myfirtsengine.Engine_Game;
 	import com.luislarghi.myfirtsengine.Engine_GameState;
@@ -15,9 +16,9 @@ package com.luislarghi.gamestates
 	{
 		private var GUI_component:GUI_MainMenu;
 		
-		public function MainMenu(s:Stage, g:Engine_Game, c:BitmapData)
+		public function MainMenu(g:Engine_Game)
 		{ 
-			super(s, g, c);
+			super(Main.mainStage, g);
 			GUI_component = new GUI_MainMenu(mainStage, mainGame);
 		}
 		
